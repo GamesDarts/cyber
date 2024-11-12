@@ -1,1 +1,1 @@
-creer un log.txt dans le folderp de server.py sinon les problèmes :)
+creer un log.txt dans le folder de server.py sinon les problèmes :)
