@@ -1,1 +1,1 @@
-creer un log.txt dans le folder de server.py sinon les problèmes :)
+va falloir passer tt ca en bytestr ... oskour
