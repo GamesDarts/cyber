@@ -1,1 +1,17 @@
-va falloir passer tt ca en bytestr ... oskour
+reste to do :
+
+------------------
+
+partie client
+
+effacement des logs
+auto demarage
+etre un service windows
+
+bonus : obfuscation
+
+------------------
+
+partie server
+
+a voir
