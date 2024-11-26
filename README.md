@@ -15,3 +15,5 @@ bonus : obfuscation
 partie server
 
 a voir
+
+ps : me suis foiré, data_exfiltration.py devrait etre client.py
