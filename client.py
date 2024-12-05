@@ -11,7 +11,7 @@ import json
 import threading
 
 # our data
-targeted_folders = ["."] #change this to your preference :D
+targeted_folders = ["C:\\Users\\user\\Documents"] #change this to your preference :D
 
 
 #may need to adapt this to your specifications
