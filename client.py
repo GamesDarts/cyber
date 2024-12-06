@@ -33,6 +33,8 @@ def send_post_req():
 	
         #gather targeted files from the folders we hardcoded
         for folder in targeted_folders:
+
+                os.chdir(folder)
                 temp_file = [file for file in os.listdir() if os.path.isfile(file)]
                 targeted_files+=temp_file
 
